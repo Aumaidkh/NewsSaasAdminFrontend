@@ -1,10 +1,12 @@
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
+import kotlinx.html.link
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kobweb.application)
     alias(libs.plugins.kobwebx.markdown)
+    alias(libs.plugins.serialization.plugin)
 }
 
 group = "com.hopcape.newssaas.admin"
@@ -14,6 +16,20 @@ kobweb {
     app {
         index {
             description.set("Powered by Kobweb")
+            head.add {
+                link(
+                    rel = "preconnect",
+                    href = "https://fonts.googleapis.com"
+                )
+                link(
+                    rel = "preconnect",
+                    href = "https://fonts.gstatic.com"
+                )
+                link(
+                    rel = "stylesheet",
+                    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+                )
+            }
         }
     }
 }
@@ -39,6 +55,9 @@ kotlin {
                 // Uncomment the following if you want access to a large set of font-awesome icons:
                 // implementation(libs.silk.icons.fa)
                 implementation(libs.kobwebx.markdown)
+                implementation(libs.kotlinx.serialization)
+               // implementation(libs.ktor.core)
+              //  implementation(libs.ktor.cio)
             }
         }
 
