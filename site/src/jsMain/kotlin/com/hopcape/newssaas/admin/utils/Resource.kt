@@ -1,6 +1,7 @@
 package com.hopcape.newssaas.admin.utils
 
 object Resource {
+
     object Images{
         const val logo = "/kobweb-logo.png"
     }
@@ -18,6 +19,9 @@ object Resource {
         const val thumbnailPickerEnterUrlLabel = "Enter Url"
         const val breakingNewsSwitchLabel = "Breaking News"
         const val sponsoredSwitchLabel = "Sponsored"
+
+        // Side Panel Labels
+        const val categoriesLabel = "Categories"
     }
 
     object PlaceHolders{

@@ -6,8 +6,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.hopcape.newssaas.admin.style.NavigationItemStyle
+import com.hopcape.newssaas.admin.style.SidebarColor
 import com.hopcape.newssaas.admin.utils.Dimensions
 import com.hopcape.newssaas.admin.utils.Resource
+import com.hopcape.newssaas.admin.utils.Resource.Labels.categoriesLabel
 import com.hopcape.newssaas.admin.utils.Screen
 import com.varabyte.kobweb.compose.css.Cursor
 import com.varabyte.kobweb.compose.css.Overflow
@@ -47,7 +49,8 @@ fun SidePanel(
     Column(
         modifier = modifier
             .boxShadow(offsetX = 5.px, blurRadius = 20.px, color = Colors.DarkGray)
-            .backgroundColor(Colors.White)
+           // .backgroundColor(SidebarColor.rgb)
+            .backgroundColor(Colors.Black.copy(alpha = 210))
             .width(Dimensions.SIDE_PANEL_WIDTH.px)
             .fillMaxHeight()
             .height(100.percent)
@@ -167,7 +170,7 @@ fun CategoriesDropdown(
             verticalAlignment = Alignment.CenterVertically
         ) {
             NavBarHeading(
-                text = "Categories",
+                text = categoriesLabel,
                 modifier = Modifier
                     .fillMaxWidth()
                     .margin(topBottom = 25.px)

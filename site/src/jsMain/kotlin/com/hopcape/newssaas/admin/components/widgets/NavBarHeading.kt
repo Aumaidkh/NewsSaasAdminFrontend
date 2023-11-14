@@ -48,8 +48,8 @@ fun NavBarHeading(text: String, modifier: Modifier = Modifier) {
             .padding(leftRight = 24.px)
             .fontFamily(FONT_FAMILY)
             .fontWeight(FontWeight.Medium)
-            .fontSize(11.px)
-            .color(Colors.Black.copy(alpha = 80)),
+            .fontSize(13.px)
+            .color(Colors.LightGray.copy(alpha = 158)),
         text = text
     )
 }
@@ -86,8 +86,8 @@ fun NavigationItem(
                     .id(NavigationItemText)
                     .fillMaxWidth()
                     .fontFamily(FONT_FAMILY)
-                    .fontWeight(FontWeight.Medium)
-                    .fontSize(12.px),
+                    .fontWeight(FontWeight.Normal)
+                    .fontSize(14.px),
                 text = label
             )
             Icon(
