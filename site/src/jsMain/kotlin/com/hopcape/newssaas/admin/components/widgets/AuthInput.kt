@@ -93,7 +93,7 @@ fun InputField(
                 .toModifier()
                 .fillMaxWidth()
                 .id(id)
-                .height(50.px)
+                .height(45.px)
                 .padding(leftRight = 24.px, topBottom = 12.px)
                 .toAttrs{
                     attr("placeholder",placeholder)

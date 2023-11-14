@@ -78,16 +78,16 @@ fun AddArticleFormSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .borderRadius(8.px)
-            .backgroundColor(Colors.White)
             .padding(24.px)
             ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
             modifier = Modifier
+                .borderRadius(8.px)
                 .id(Resource.Id.NavigationItem.NavigationItemContainer)
-                .padding(leftRight = 100.px)
+                .padding(100.px)
+                .backgroundColor(Colors.White)
                 .fillMaxWidth(75.percent),
             horizontalAlignment = Alignment.Start
         ) {
@@ -236,7 +236,8 @@ fun ThumbnailPicker(
                 .fillMaxWidth(25.percent)
                 .margin(left = 24.px),
             text = if (mode is ThumbnailMode.Url) thumbnailPickerUploadLabel else thumbnailPickerEnterUrlLabel,
-            onClick = onClick
+            onClick = onClick,
+            height = 45
         )
     }
 }

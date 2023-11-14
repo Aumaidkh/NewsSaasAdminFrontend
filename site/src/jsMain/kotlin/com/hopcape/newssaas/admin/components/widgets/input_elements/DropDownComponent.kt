@@ -48,7 +48,7 @@ fun DropDown(
             modifier = InputFieldStyle
                 .toModifier()
                 .then(modifier)
-                .height(50.px)
+                .height(45.px)
                 .width(maxWidth.px)
                 .padding(leftRight = 24.px, topBottom = 8.px)
                 .borderRadius(8.px),
@@ -59,6 +59,7 @@ fun DropDown(
                 modifier = Modifier
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontWeight(FontWeight.Normal)
+                    .fontSize(14.px)
                     .color(if (placeholder.equals("Select a Category",true)) Colors.Black.copy(alpha = 78) else Colors.Black)
                     .margin(right = 24.px),
                 text = placeholder

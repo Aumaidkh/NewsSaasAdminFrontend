@@ -30,7 +30,7 @@ val InputFieldStyle by ComponentStyle {
             )
             .fontFamily(FONT_FAMILY)
             .fontWeight(FontWeight.Normal)
-            .fontSize(16.px)
+            .fontSize(14.px)
             .borderRadius(Shapes.Small.cornerRadius.px)
             .backgroundColor(Colors.White)
             .color(Colors.Black)
