@@ -2,6 +2,7 @@ package com.hopcape.newssaas.admin.pages.articles
 
 import androidx.compose.runtime.Composable
 import com.hopcape.newssaas.admin.components.widgets.Icon
+import com.hopcape.newssaas.admin.components.widgets.button.OutlinedPrimaryButton
 import com.hopcape.newssaas.admin.style.BackgroundColor
 import com.hopcape.newssaas.admin.style.EditorIconStyle
 import com.hopcape.newssaas.admin.style.EditorItemStyle
@@ -31,6 +32,7 @@ import com.varabyte.kobweb.compose.css.Visibility
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
@@ -63,7 +65,8 @@ import org.jetbrains.compose.web.dom.TextArea
 fun EditorComponent(
     modifier: Modifier = Modifier,
     onEditorControlClick: (EditorControl) -> Unit,
-    editorVisibility: Boolean = true
+    editorVisibility: Boolean = true,
+    onPreview: () -> Unit
 ) {
     Column(
         modifier = modifier,
@@ -71,27 +74,36 @@ fun EditorComponent(
     ) {
         Row(
             modifier = Modifier
-                .backgroundColor(BackgroundColor.rgb)
+                .fillMaxWidth()
                 .margin(bottom = 8.px),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            editorControls.forEach { control ->
-                Box(
-                    modifier = EditorItemStyle
-                        .toModifier()
-                        .onClick {
-                            onEditorControlClick(control)
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        modifier = EditorIconStyle
-                            .toModifier(),
-                        path = control.icon,
-                        size = 50
-                    )
+            // Show Editor Controls when Text area is visible
+            if (editorVisibility){
+                editorControls.forEach { control ->
+                    Box(
+                        modifier = EditorItemStyle
+                            .toModifier()
+                            .onClick {
+                                onEditorControlClick(control)
+                            },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            modifier = EditorIconStyle
+                                .toModifier(),
+                            path = control.icon,
+                            size = 50
+                        )
+                    }
                 }
             }
+            Spacer()
+            OutlinedPrimaryButton(
+                text = if (editorVisibility) "Show Preview" else "Hide Preview",
+                borderWidth = 2,
+                onClick = onPreview
+            )
         }
         TextArea(
             attrs = InputFieldStyle

@@ -147,6 +147,10 @@ fun AddArticleFormSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .margin(bottom = 24.px),
+                onPreview = {
+                    editorVisibility = !editorVisibility
+                    document.getElementById(Resource.Id.Input.EditorPreview)?.innerHTML = getEditor().value
+                },
                 onEditorControlClick = { control ->
                     when(control){
                         is EditorControl.BoldControl -> {
@@ -230,21 +234,6 @@ fun AddArticleFormSection(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
-                SpanText(
-                    modifier = Modifier
-                        .fontFamily(Constants.FONT_FAMILY)
-                        .fontWeight(FontWeight.Normal)
-                        .color(Colors.DarkGray)
-                        .fontSize(15.px)
-                        .onClick {
-                            editorVisibility = !editorVisibility
-                            document.getElementById(Resource.Id.Input.EditorPreview)?.innerHTML = getEditor().value
-                        }
-                        .cursor(Cursor.Pointer)
-                        .margin(right = 24.px),
-                    text = "Preview"
-                )
-
                 PrimaryButton(
                     text = "Submit",
                     onClick = onSubmit
