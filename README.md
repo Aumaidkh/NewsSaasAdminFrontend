@@ -3,6 +3,18 @@
 Login Page is used to login in an admin with email and password.
 ![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/3f022428-9704-489b-bbd6-b71d0c85c486)
 
+#### Add Article Page
+
+![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/13ab6853-22f6-42f5-8f3e-d29007e179a6)
+This page has consists of the following input field
+1. Article Title
+2. Article Subtitle: Subtitle of the article
+3. Category: Can be any of the Article categories like technology, local , regional etc.
+4. Date And Time: For picking the time
+5. Thumbnail Url: The thumbnail for the article
+6. Editor: For adding the content to the article
+7. Editor Controls: For Styling the content in the editor and adding links, images etc.
+
 This is a [Kobweb](https://github.com/varabyte/kobweb) project bootstrapped with the `app` template.
 
 ## Getting Started
