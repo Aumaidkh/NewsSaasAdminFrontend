@@ -29,7 +29,7 @@ sealed class ControlStyle(val style: String) {
     )
 
     class Quotes(val content: String, tag: String = "blockquote") : ControlStyle(
-        style = if (content.startsWith("<$tag>")) removeTag(tag, content) else "<$tag><em>\"$content\"</em></$tag>"
+        style = if (content.startsWith("<$tag>")) removeTag(tag, content) else "<$tag><em>$content</em></$tag>"
     )
 
     class Title(val content: String, tag: String = "h3") : ControlStyle(

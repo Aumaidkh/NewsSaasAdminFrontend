@@ -11,6 +11,9 @@ object Resource {
             const val PasswordInput = "passwordInput"
             const val Editor = "editor"
             const val EditorPreview = "editorPreview"
+            const val FormTitle = "formTitle"
+            const val articleTitle = "articleTitle"
+            const val articleSubtitle = "articleSubtitle"
         }
 
         object Button {

@@ -10,13 +10,13 @@ import com.hopcape.newssaas.admin.components.widgets.InputField
 import com.hopcape.newssaas.admin.components.widgets.InputType
 import com.hopcape.newssaas.admin.components.widgets.button.PrimaryButton
 import com.hopcape.newssaas.admin.components.widgets.input_elements.DropDown
-import com.hopcape.newssaas.admin.components.widgets.input_elements.LabelledSwitch
 import com.hopcape.newssaas.admin.style.Constants
 import com.hopcape.newssaas.admin.utils.ControlStyle
 import com.hopcape.newssaas.admin.utils.HelperMethods
 import com.hopcape.newssaas.admin.utils.HelperMethods.getEditor
 import com.hopcape.newssaas.admin.utils.Resource
-import com.varabyte.kobweb.compose.css.Cursor
+import com.hopcape.newssaas.admin.utils.Resource.Id.Input.articleSubtitle
+import com.hopcape.newssaas.admin.utils.Resource.Id.Input.articleTitle
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -27,7 +27,6 @@ import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
 import com.varabyte.kobweb.compose.ui.modifiers.color
-import com.varabyte.kobweb.compose.ui.modifiers.cursor
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.fontFamily
 import com.varabyte.kobweb.compose.ui.modifiers.fontSize
@@ -36,8 +35,6 @@ import com.varabyte.kobweb.compose.ui.modifiers.id
 import com.varabyte.kobweb.compose.ui.modifiers.margin
 import com.varabyte.kobweb.compose.ui.modifiers.onClick
 import com.varabyte.kobweb.compose.ui.modifiers.padding
-import com.varabyte.kobweb.silk.components.forms.Switch
-import com.varabyte.kobweb.silk.components.forms.SwitchSize
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.text.SpanText
 import kotlinx.browser.document
@@ -49,8 +46,17 @@ fun AddArticleFormSection(
     breakpoint: Breakpoint,
     category: String,
     onCategoryClick: () -> Unit,
-    onLinkControlClick: () -> Unit,
-    onImageControlClick: () -> Unit,
+    onEnterPress: () -> Unit,
+    onUndoClick: () -> Unit,
+    onRedoClick: () -> Unit,
+    onBoldClick: () -> Unit,
+    onItalicClick: () -> Unit,
+    onUnderlineClick: () -> Unit,
+    onImageClick: () -> Unit,
+    onLinkClick: () -> Unit,
+    onTitleClick: () -> Unit,
+    onSubtitleClick: () -> Unit,
+    onQuotesClick: () -> Unit,
     onSubmit: () -> Unit,
 ) {
     var editorVisibility by remember { mutableStateOf(true) }
@@ -72,6 +78,7 @@ fun AddArticleFormSection(
         ) {
             SpanText(
                 modifier = Modifier
+                    .id(Resource.Id.Input.FormTitle)
                     .fillMaxWidth()
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontWeight(FontWeight.Normal)
@@ -87,6 +94,7 @@ fun AddArticleFormSection(
                 inputType = InputType.TEXT,
                 label = "Article Title*",
                 placeholder = "Pakistan ruled out of CWC 2013",
+                id = articleTitle
             )
             InputField(
                 modifier = Modifier
@@ -95,6 +103,7 @@ fun AddArticleFormSection(
                 inputType = InputType.TEXT,
                 label = "Sub Title*",
                 placeholder = "Can pakistan make the miraculous entry back into the world cup?",
+                id = articleSubtitle
             )
 
             Row(
@@ -151,80 +160,18 @@ fun AddArticleFormSection(
                     editorVisibility = !editorVisibility
                     document.getElementById(Resource.Id.Input.EditorPreview)?.innerHTML = getEditor().value
                 },
-                onEditorControlClick = { control ->
-                    when(control){
-                        is EditorControl.BoldControl -> {
-                            HelperMethods.getSelectedText()?.let {
-                                if (it.isNotEmpty()){
-                                    HelperMethods.applyStyle(
-                                        text = it,
-                                        style = ControlStyle.Bold(it)
-                                    )
-                                }
-                            }
-
-                        }
-                        is EditorControl.UndoControl -> HelperMethods.undo()
-                        EditorControl.ImageControl -> {
-                            onImageControlClick()
-                        }
-                        EditorControl.ItalicControl -> {
-                            HelperMethods.getSelectedText()?.let {
-                                if (it.isNotEmpty()){
-                                    HelperMethods.applyStyle(
-                                        text = it,
-                                        style = ControlStyle.Italic(it)
-                                    )
-                                }
-                            }
-                        }
-                        EditorControl.LinkControl -> {
-                            onLinkControlClick()
-                        }
-                        EditorControl.QuotesControl -> {
-                            HelperMethods.getSelectedText()?.let {
-                                if (it.isNotEmpty()){
-                                    HelperMethods.applyStyle(
-                                        text = it,
-                                        style = ControlStyle.Quotes(it)
-                                    )
-                                }
-                            }
-                        }
-                        EditorControl.RedoControl -> {}
-                        EditorControl.SubtitleControl -> {
-                            HelperMethods.getSelectedText()?.let {
-                                if (it.isNotEmpty()){
-                                    HelperMethods.applyStyle(
-                                        text = it,
-                                        style = ControlStyle.Subtitle(it)
-                                    )
-                                }
-                            }
-                        }
-                        EditorControl.TitleControl -> {
-                            HelperMethods.getSelectedText()?.let {
-                                if (it.isNotEmpty()){
-                                    HelperMethods.applyStyle(
-                                        text = it,
-                                        style = ControlStyle.Title(it)
-                                    )
-                                }
-                            }
-                        }
-                        EditorControl.UnderlineControl -> {
-                            HelperMethods.getSelectedText()?.let {
-                                if (it.isNotEmpty()){
-                                    HelperMethods.applyStyle(
-                                        text = it,
-                                        style = ControlStyle.Underline(it)
-                                    )
-                                }
-                            }
-                        }
-                    }
-                },
-                editorVisibility = editorVisibility
+                onUndoClick = onUndoClick,
+                onRedoClick = onRedoClick,
+                onBoldClick = onBoldClick,
+                onItalicClick = onItalicClick,
+                onUnderlineClick = onUnderlineClick,
+                onQuotesClick = onQuotesClick,
+                onLinkClick = onLinkClick,
+                onImageClick =onImageClick,
+                onTitleClick = onTitleClick,
+                onSubtitleClick = onSubtitleClick,
+                editorVisibility = editorVisibility,
+                onEnterPress = onEnterPress
             )
 
             Row(

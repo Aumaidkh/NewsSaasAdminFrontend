@@ -12,7 +12,11 @@ import com.hopcape.newssaas.admin.style.BackgroundColor
 import com.hopcape.newssaas.admin.utils.ControlStyle
 import com.hopcape.newssaas.admin.utils.Dimensions
 import com.hopcape.newssaas.admin.utils.HelperMethods
-import com.varabyte.kobweb.compose.css.functions.url
+import com.hopcape.newssaas.admin.utils.HelperMethods.applyStyle
+import com.hopcape.newssaas.admin.utils.HelperMethods.getEditor
+import com.hopcape.newssaas.admin.utils.Stack
+import com.hopcape.newssaas.admin.utils.pop
+import com.hopcape.newssaas.admin.utils.push
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -26,8 +30,10 @@ import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.core.Page
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
+import kotlinx.browser.document
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.vh
+import org.w3c.dom.HTMLInputElement
 
 @Page("create")
 @Composable
@@ -38,6 +44,13 @@ fun CreateArticlePage() {
     var showingLinkDialog by remember { mutableStateOf(false) }
     var showingImageDialog by remember { mutableStateOf(false) }
     var category by remember { mutableStateOf("Select a category") }
+
+    val undoStack: Stack<String> = remember {
+        mutableListOf()
+    }
+    val redoStack: Stack<Pair<String,String>> = remember {
+        mutableListOf()
+    }
 
     SidePanelView(
         breakpoint = breakpoint,
@@ -68,13 +81,108 @@ fun CreateArticlePage() {
                             showingArticleSubmissionDialog = true
                         },
                         breakpoint = breakpoint,
-                        onLinkControlClick = {
+                        onBoldClick = {
+                            HelperMethods.getSelectedText()?.let {
+                                if (it.isNotEmpty()){
+                                    applyStyle(
+                                        text = it,
+                                        style = ControlStyle.Bold(it)
+                                    ).also { result ->
+                                        undoStack.push(result)
+                                    }
+                                }
+                            }
+                        },
+                        onItalicClick = {
+                            HelperMethods.getSelectedText()?.let {
+                                if (it.isNotEmpty()){
+                                    applyStyle(
+                                        text = it,
+                                        style = ControlStyle.Italic(it)
+                                    ).also { result ->
+                                        undoStack.push(result)
+                                    }
+                                }
+                            }
+                        },
+                        onUnderlineClick = {
+                            HelperMethods.getSelectedText()?.let {
+                                if (it.isNotEmpty()){
+                                    applyStyle(
+                                        text = it,
+                                        style = ControlStyle.Underline(it)
+                                    ).also { result ->
+                                        undoStack.push(result)
+                                    }
+                                }
+                            }
+                        },
+                        onQuotesClick = {
+                            HelperMethods.getSelectedText()?.let {
+                                if (it.isNotEmpty()){
+                                    applyStyle(
+                                        text = it,
+                                        style = ControlStyle.Quotes(it)
+                                    ).also { result ->
+                                        undoStack.push(result)
+                                    }
+                                }
+                            }
+                        },
+                        onLinkClick = {
                             if (!HelperMethods.getSelectedText().isNullOrEmpty()){
                                 showingLinkDialog = !showingLinkDialog
                             }
                         },
-                        onImageControlClick = {
+                        onImageClick = {
                             showingImageDialog = true
+                        },
+                        onTitleClick = {
+                            HelperMethods.getSelectedText()?.let {
+                                if (it.isNotEmpty()){
+                                    applyStyle(
+                                        text = it,
+                                        style = ControlStyle.Title(it)
+                                    ).also { result ->
+                                        undoStack.push(result)
+                                    }
+                                }
+                            }
+                        },
+                        onSubtitleClick = {
+                            HelperMethods.getSelectedText()?.let {
+                                if (it.isNotEmpty()){
+                                    applyStyle(
+                                        text = it,
+                                        style = ControlStyle.Subtitle(it)
+                                    ).also { result ->
+                                        undoStack.push(result)
+                                    }
+                                }
+                            }
+                        },
+                        onUndoClick = {
+                            val contentToRemove = undoStack.pop()
+                            contentToRemove?.let {
+                                val currentContent = getEditor().value
+                                redoStack.push(Pair(currentContent,contentToRemove))
+                                removeFromTextArea(contentToRemove)
+                            }
+                        },
+                        onRedoClick = {
+                            val contentToAdd = redoStack.pop()
+                            contentToAdd?.let {
+                                getEditor().value = it.first
+                            }
+                        },
+                        onEnterPress = {
+                            val text = getEditor().value
+                            applyStyle(
+                                text = text,
+                                style = ControlStyle.LineBreak(content = text)
+                            ).also {
+                                undoStack.push(it)
+                            }
                         }
                     )
                 }
@@ -137,15 +245,16 @@ fun CreateArticlePage() {
                             showingImageDialog = false
                         },
                         onSubmit = { description, link ->
-                            HelperMethods.applyStyle(
-                                text = "",
-                                style = ControlStyle.Image(
-                                    content = "",
-                                    url = link,
-                                    description = description
-                                )
-                            )
-                        }
+                            val currentContent = getEditor().value
+                            val imageHtml = ControlStyle.Image(
+                                content = "",
+                                url = link,
+                                description = description
+                            ).style.also {
+                                undoStack.push(it)
+                            }
+                            val newContent = currentContent + imageHtml
+                            getEditor().value = newContent             }
                     )
                 }
 
@@ -153,4 +262,27 @@ fun CreateArticlePage() {
 
         }
     )
+}
+
+fun printMessage(message: String, id: String){
+    (document.getElementById(id) as HTMLInputElement).value = message
+}
+
+private fun removeFromTextArea(htmlContent: String?){
+    htmlContent?.let {
+        val text = getInnerHtmlText(htmlContent)
+        val textAreaContent = getEditor().value
+        val replacedText = textAreaContent.replace(it,text)
+        getEditor().value = replacedText
+    }
+}
+
+private fun addToTextArea(htmlContent: String){
+
+}
+
+private fun getInnerHtmlText(htmlContent: String): String {
+    val regex = Regex("<.*?>([^<]*)<\\/.*?>")
+    val matchResult = regex.find(htmlContent)
+    return matchResult?.groupValues?.get(1) ?: ""
 }

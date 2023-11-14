@@ -34,12 +34,12 @@ object HelperMethods {
      * Applies the
      * @param  style to the
      * @param text
-     * */
-    fun applyStyle(text: String,style: ControlStyle) {
+     * @return [String] html content*/
+    fun applyStyle(text: String,style: ControlStyle): String {
         val result = getEditor().value.replace(text,style.style)
         getEditor().value = result
         getEditor().focus()
-
+        return style.style
     }
 
     /**
