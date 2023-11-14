@@ -62,6 +62,7 @@ fun OutlinedPrimaryButton(
     modifier: Modifier = Modifier,
     text: String,
     height: Int = 55,
+    borderWidth: Int = 1,
     onClick: () -> Unit
 ) {
     Button(
@@ -70,7 +71,7 @@ fun OutlinedPrimaryButton(
             .onClick { onClick() }
             .borderRadius(8.px)
             .border(
-                width = 1.px,
+                width = borderWidth.px,
                 style = LineStyle.Solid,
                 color = PrimaryColor.rgb
             )
@@ -82,7 +83,7 @@ fun OutlinedPrimaryButton(
         SpanText(
             modifier = Modifier
                 .fontFamily(Constants.FONT_FAMILY)
-                .fontWeight(FontWeight.Normal)
+                .fontWeight(FontWeight.Medium)
                 .color(PrimaryColor.rgb)
                 .fontSize(14.px)
                 .margin(bottom = 12.px),
