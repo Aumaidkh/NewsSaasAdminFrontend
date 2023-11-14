@@ -11,6 +11,10 @@ val PrimaryColor = Color(
     hex = "#0d6efd",
     rgb = rgb(13,110,253)
 )
+val PrimaryContainerColor = Color(
+    hex = "#dae2ff",
+    rgb = rgb(218,226,255)
+)
 val BackgroundColor = Color(
     hex = "#f6f9ff",
     rgb = rgb(246,249,255)
@@ -18,4 +22,9 @@ val BackgroundColor = Color(
 val Mercury = Color(
     hex = "#e3e7ea",
     rgb = rgb(227,231,234)
+)
+
+val Teritiary = Color(
+    hex = "#735471",
+    rgb = rgb(115, 84, 113)
 )

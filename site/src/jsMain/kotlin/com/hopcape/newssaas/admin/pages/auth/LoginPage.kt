@@ -196,14 +196,16 @@ fun LoginForm(
             label = "Email",
             inputType = InputType.EMAIL,
             placeholder = "Email",
-            id = Resource.Id.Input.EmailInput
+            id = Resource.Id.Input.EmailInput,
+            maxWidth = 350
         )
         InputField(modifier = Modifier
             .margin(bottom = 24.px),
             label = "Password",
             inputType = InputType.PASSWORD,
             placeholder = "**********",
-            id = Resource.Id.Input.PasswordInput
+            id = Resource.Id.Input.PasswordInput,
+            maxWidth = 350
         )
         RememberMe(
             modifier = Modifier

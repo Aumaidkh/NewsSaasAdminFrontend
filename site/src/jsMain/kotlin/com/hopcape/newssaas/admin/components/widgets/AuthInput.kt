@@ -8,6 +8,7 @@ import com.hopcape.newssaas.admin.style.Mercury
 import com.hopcape.newssaas.admin.style.Shapes
 import com.hopcape.newssaas.admin.utils.Resource
 import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.MaxWidth
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
@@ -25,6 +26,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.margin
 import com.varabyte.kobweb.compose.ui.modifiers.outline
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.width
+import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.text.SpanText
@@ -36,13 +38,21 @@ enum class InputType(
     val icon: String? = null
 ) {
     EMAIL(),
-    PASSWORD()
+    PASSWORD(),
+    TEXT(),
+    DATE(),
+    IMAGE,
+    URL
 }
 
 fun InputType.toInputType() =
     when(this){
         InputType.EMAIL -> org.jetbrains.compose.web.attributes.InputType.Email
         InputType.PASSWORD -> org.jetbrains.compose.web.attributes.InputType.Password
+        InputType.TEXT -> org.jetbrains.compose.web.attributes.InputType.Text
+        InputType.DATE -> org.jetbrains.compose.web.attributes.InputType.DateTimeLocal
+        InputType.IMAGE -> org.jetbrains.compose.web.attributes.InputType.File
+        InputType.URL -> org.jetbrains.compose.web.attributes.InputType.Url
     }
 
 @Composable
@@ -51,17 +61,28 @@ fun InputField(
     inputType: InputType = InputType.EMAIL,
     label: String = "Email",
     placeholder: String = "Email",
-    id: String = Resource.Id.Input.EmailInput
+    id: String = Resource.Id.Input.EmailInput,
+    maxWidth: Int? = null
 ) {
     Column(
         modifier = modifier
-            .fillMaxWidth()
+            .thenIf(
+                condition = maxWidth == null,
+                other = Modifier
+                    .fillMaxWidth()
+            )
+            .thenIf(
+                condition = maxWidth != null,
+                other = Modifier
+                    .width(maxWidth?.px ?: 350.px)
+            )
     ) {
         SpanText(
             modifier = Modifier
                 .fontFamily(FONT_FAMILY)
                 .fontWeight(FontWeight.Normal)
                 .color(Colors.Black)
+                .fontSize(14.px)
                 .margin(bottom = 12.px),
             text = label
         )
@@ -69,9 +90,9 @@ fun InputField(
             type = inputType.toInputType(),
             attrs = InputFieldStyle
                 .toModifier()
+                .fillMaxWidth()
                 .id(id)
                 .height(50.px)
-                .width(350.px)
                 .padding(leftRight = 24.px, topBottom = 12.px)
                 .borderRadius(Shapes.Small.cornerRadius.px)
                 .backgroundColor(Colors.White)
