@@ -58,6 +58,7 @@ import com.varabyte.kobweb.silk.components.style.toModifier
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.TextArea
 
@@ -138,8 +139,7 @@ fun PreviewComponent(
         attrs = modifier
             .id(Resource.Id.Input.EditorPreview)
             .fillMaxWidth()
-            .height(400.px)
-            .maxHeight(400.px)
+            .maxHeight(100.vh)
             .margin(top = 8.px)
             .padding(all = 20.px)
             .backgroundColor(Colors.White)
