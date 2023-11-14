@@ -1,7 +1,12 @@
 ## Pages
 
-Login Page is used to login in an admin with email and password.
+#### Login Page
 ![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/3f022428-9704-489b-bbd6-b71d0c85c486)
+This page is used to authenticate the user with email and password based authentication. It consists of the below elements
+1. Email field
+2. Password field
+3. Remember Me Checkbox
+4. Login Button
 
 #### Add Article Page
 
@@ -14,6 +19,8 @@ This page has consists of the following input field
 5. Thumbnail Url: The thumbnail for the article
 6. Editor: For adding the content to the article
 7. Editor Controls: For Styling the content in the editor and adding links, images etc.
+8. Breaking News Switch: When enabled the article is made the breaking news
+9. Sponsored Switch: When enabled the article is made the sponsored article.
 
 This is a [Kobweb](https://github.com/varabyte/kobweb) project bootstrapped with the `app` template.
 
