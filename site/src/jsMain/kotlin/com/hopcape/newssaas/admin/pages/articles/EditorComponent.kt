@@ -94,7 +94,7 @@ fun EditorComponent(
                             modifier = EditorIconStyle
                                 .toModifier(),
                             path = control.icon,
-                            size = 50
+                            size = if (control is EditorControl.SubtitleControl) 45 else 50
                         )
                     }
                 }
@@ -163,7 +163,7 @@ sealed class EditorControl(
     data object QuotesControl : EditorControl(icon = QuotesIcon)
     data object ImageControl : EditorControl(icon = ImageIcon)
     data object TitleControl : EditorControl(icon = TitleIcon)
-    data object SubtitleControl : EditorControl(icon = SubtitleIcon)
+    data object SubtitleControl : EditorControl(icon = TitleIcon)
     data object UndoControl : EditorControl(icon = UndoIcon)
     data object RedoControl : EditorControl(icon = RedoIcon)
 }
