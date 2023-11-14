@@ -114,7 +114,6 @@ fun EditorComponent(
                 .resize(Resize.None)
                 .fillMaxWidth()
                 .display(if (editorVisibility) DisplayStyle.Block else DisplayStyle.None)
-                .borderRadius(8.px)
                 .onKeyDown {
                     if (it.key == "Enter"){
                         handleEnterPress()

@@ -94,12 +94,6 @@ fun InputField(
                 .id(id)
                 .height(50.px)
                 .padding(leftRight = 24.px, topBottom = 12.px)
-                .borderRadius(Shapes.Small.cornerRadius.px)
-                .backgroundColor(Colors.White)
-                .color(Colors.Black)
-                .fontFamily(FONT_FAMILY)
-                .fontWeight(FontWeight.Normal)
-                .fontSize(16.px)
                 .toAttrs{
                     attr("placeholder",placeholder)
                 }
