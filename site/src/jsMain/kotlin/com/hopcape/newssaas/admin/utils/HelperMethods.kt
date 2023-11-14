@@ -42,19 +42,4 @@ object HelperMethods {
         return style.style
     }
 
-    /**
-     * Applies undo functionality*/
-    fun undo(){
-        val text = getEditor().value
-        val result = text.split(" ")
-        getEditor().value = result.dropLast(result.size-1).joinToString { " " }
-    }
-
-    fun handleEnterPress(){
-        val text = getEditor().value
-        applyStyle(
-            text = text,
-            style = ControlStyle.LineBreak(text)
-        )
-    }
 }

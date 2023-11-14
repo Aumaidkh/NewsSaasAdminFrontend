@@ -48,9 +48,6 @@ fun CreateArticlePage() {
     val undoStack: Stack<String> = remember {
         mutableListOf()
     }
-    val redoStack: Stack<Pair<String,String>> = remember {
-        mutableListOf()
-    }
 
     SidePanelView(
         breakpoint = breakpoint,
@@ -165,15 +162,11 @@ fun CreateArticlePage() {
                             val contentToRemove = undoStack.pop()
                             contentToRemove?.let {
                                 val currentContent = getEditor().value
-                                redoStack.push(Pair(currentContent,contentToRemove))
                                 removeFromTextArea(contentToRemove)
                             }
                         },
                         onRedoClick = {
-                            val contentToAdd = redoStack.pop()
-                            contentToAdd?.let {
-                                getEditor().value = it.first
-                            }
+
                         },
                         onEnterPress = {
                             val text = getEditor().value

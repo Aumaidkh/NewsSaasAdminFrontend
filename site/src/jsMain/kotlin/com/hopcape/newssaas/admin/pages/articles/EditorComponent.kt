@@ -7,7 +7,6 @@ import com.hopcape.newssaas.admin.style.EditorIconStyle
 import com.hopcape.newssaas.admin.style.EditorItemStyle
 import com.hopcape.newssaas.admin.style.InputFieldStyle
 import com.hopcape.newssaas.admin.style.noBorder
-import com.hopcape.newssaas.admin.utils.HelperMethods.handleEnterPress
 import com.hopcape.newssaas.admin.utils.Resource
 import com.hopcape.newssaas.admin.utils.Resource.Icons.BoldIcon
 import com.hopcape.newssaas.admin.utils.Resource.Icons.ImageIcon
@@ -80,7 +79,8 @@ fun EditorComponent(
         ) {
             // Show Editor Controls when Text area is visible
             if (editorVisibility){
-                editorControls.forEach { control ->
+                // Don't show Redo Control for now
+                editorControls.filter { it !is EditorControl.RedoControl }.forEach { control ->
                     Box(
                         modifier = EditorItemStyle
                             .toModifier()
