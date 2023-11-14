@@ -17,7 +17,7 @@ sealed class ControlStyle(val style: String) {
     )
 
     class Image(val content: String, url: String, description: String) : ControlStyle(
-        style = "<img src=\"$url\" alt=\"$description\">"
+        style = "<img src=\"$url\" alt=\"$description\" style=\"width:100%;max-width:100%;max-height:500px;object-fit:cover;object-position:center;\">"
     )
 
     class Link(

@@ -79,9 +79,6 @@ private fun parseUrl(url: String): String {
     if (!url.startsWith("https://")){
         return "https://$url"
     }
-    if (!url.startsWith("https://www.")){
-        return "https://www.$url"
-    }
     return url
 }
 
