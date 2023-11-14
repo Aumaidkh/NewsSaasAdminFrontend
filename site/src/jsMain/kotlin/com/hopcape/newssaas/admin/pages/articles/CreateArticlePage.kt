@@ -137,7 +137,6 @@ fun CreateArticlePage() {
                             showingImageDialog = false
                         },
                         onSubmit = { description, link ->
-                            showingImageDialog = false
                             HelperMethods.applyStyle(
                                 text = "",
                                 style = ControlStyle.Image(
