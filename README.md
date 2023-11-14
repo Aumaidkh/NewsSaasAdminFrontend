@@ -10,7 +10,8 @@ This page is used to authenticate the user with email and password based authent
 
 #### Add Article Page
 
-![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/13ab6853-22f6-42f5-8f3e-d29007e179a6)
+![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/068c570b-eea0-4acd-bafc-195ee435eac5)
+
 This page has consists of the following input field
 1. Article Title
 2. Article Subtitle: Subtitle of the article
