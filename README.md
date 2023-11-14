@@ -1,3 +1,8 @@
+## Pages
+
+Login Page is used to login in an admin with email and password.
+![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/3f022428-9704-489b-bbd6-b71d0c85c486)
+
 This is a [Kobweb](https://github.com/varabyte/kobweb) project bootstrapped with the `app` template.
 
 ## Getting Started
