@@ -11,12 +11,24 @@ import com.hopcape.newssaas.admin.components.widgets.InputType
 import com.hopcape.newssaas.admin.components.widgets.button.PrimaryButton
 import com.hopcape.newssaas.admin.components.widgets.input_elements.DropDown
 import com.hopcape.newssaas.admin.style.Constants
-import com.hopcape.newssaas.admin.utils.ControlStyle
-import com.hopcape.newssaas.admin.utils.HelperMethods
 import com.hopcape.newssaas.admin.utils.HelperMethods.getEditor
 import com.hopcape.newssaas.admin.utils.Resource
 import com.hopcape.newssaas.admin.utils.Resource.Id.Input.articleSubtitle
 import com.hopcape.newssaas.admin.utils.Resource.Id.Input.articleTitle
+import com.hopcape.newssaas.admin.utils.Resource.Labels.addArticleFormTitleLabel
+import com.hopcape.newssaas.admin.utils.Resource.Labels.articleSubtitleLabel
+import com.hopcape.newssaas.admin.utils.Resource.Labels.articleTitleLabel
+import com.hopcape.newssaas.admin.utils.Resource.Labels.categorySelectorLabel
+import com.hopcape.newssaas.admin.utils.Resource.Labels.selectDateAndTimeLabel
+import com.hopcape.newssaas.admin.utils.Resource.Labels.submitArticleButtonLabel
+import com.hopcape.newssaas.admin.utils.Resource.Labels.thumbnailFilePickerLabel
+import com.hopcape.newssaas.admin.utils.Resource.Labels.thumbnailPickerEnterUrlLabel
+import com.hopcape.newssaas.admin.utils.Resource.Labels.thumbnailPickerUploadLabel
+import com.hopcape.newssaas.admin.utils.Resource.Labels.thumbnailUrlTitleLabel
+import com.hopcape.newssaas.admin.utils.Resource.PlaceHolders
+import com.hopcape.newssaas.admin.utils.Resource.PlaceHolders.articleSubtitlePlaceholder
+import com.hopcape.newssaas.admin.utils.Resource.PlaceHolders.articleTitlePlaceholder
+import com.hopcape.newssaas.admin.utils.Resource.PlaceHolders.thumbnailUrlPlaceholder
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -40,6 +52,7 @@ import com.varabyte.kobweb.silk.components.text.SpanText
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
+import org.w3c.files.File
 
 @Composable
 fun AddArticleFormSection(
@@ -58,8 +71,10 @@ fun AddArticleFormSection(
     onSubtitleClick: () -> Unit,
     onQuotesClick: () -> Unit,
     onSubmit: () -> Unit,
+    onVideoClick: () -> Unit,
 ) {
     var editorVisibility by remember { mutableStateOf(true) }
+    var thumbnailPickerMode = remember{ mutableStateOf<ThumbnailMode>(ThumbnailMode.Url(""))}
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -85,15 +100,15 @@ fun AddArticleFormSection(
                     .color(Colors.Black)
                     .fontSize(23.px)
                     .margin(bottom = 30.px),
-                text = "Add Article"
+                text = addArticleFormTitleLabel
             )
             InputField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .margin(bottom = 24.px),
                 inputType = InputType.TEXT,
-                label = "Article Title*",
-                placeholder = "Pakistan ruled out of CWC 2013",
+                label = articleTitleLabel,
+                placeholder = articleTitlePlaceholder,
                 id = articleTitle
             )
             InputField(
@@ -101,8 +116,8 @@ fun AddArticleFormSection(
                     .fillMaxWidth()
                     .margin(bottom = 24.px),
                 inputType = InputType.TEXT,
-                label = "Sub Title*",
-                placeholder = "Can pakistan make the miraculous entry back into the world cup?",
+                label = articleSubtitleLabel,
+                placeholder = articleSubtitlePlaceholder,
                 id = articleSubtitle
             )
 
@@ -118,14 +133,14 @@ fun AddArticleFormSection(
                         .onClick {
                             onCategoryClick()
                         },
-                    label = "Category *",
+                    label = categorySelectorLabel,
                     placeholder = category,
                     maxWidth = if (breakpoint <= Breakpoint.MD) 270 else 320
                 )
 
                 InputField(
                     maxWidth = if (breakpoint <= Breakpoint.MD) 270 else 320,
-                    label = "Select Date Time *",
+                    label = selectDateAndTimeLabel,
                     inputType = InputType.DATE,
                 )
             }
@@ -136,21 +151,15 @@ fun AddArticleFormSection(
                     .margin(bottom = 24.px)
             )
 
-            InputField(
+            ThumbnailPicker(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .margin(bottom = 24.px),
-                label = "Select File *",
-                inputType = InputType.IMAGE
+                mode = thumbnailPickerMode.value,
+                onClick = {
+                    thumbnailPickerMode.value = if (thumbnailPickerMode.value is ThumbnailMode.Url) ThumbnailMode.ImageFile() else ThumbnailMode.Url()
+                }
             )
-
-            InputField(
-                modifier = Modifier
-                    .margin(bottom = 24.px),
-                label = "Paste URL ( Optional )",
-                inputType = InputType.URL,
-                placeholder = "https://"
-            )
-
 
             EditorComponent(
                 modifier = Modifier
@@ -171,6 +180,7 @@ fun AddArticleFormSection(
                 onTitleClick = onTitleClick,
                 onSubtitleClick = onSubtitleClick,
                 editorVisibility = editorVisibility,
+                onVideoClick = onVideoClick,
                 onEnterPress = onEnterPress
             )
 
@@ -182,12 +192,57 @@ fun AddArticleFormSection(
                 horizontalArrangement = Arrangement.End
             ) {
                 PrimaryButton(
-                    text = "Submit",
+                    text = submitArticleButtonLabel,
                     onClick = onSubmit
                 )
             }
         }
     }
+}
+
+@Composable
+fun ThumbnailPicker(
+    modifier: Modifier = Modifier,
+    mode: ThumbnailMode,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.Bottom
+    ) {
+        when(mode){
+            is ThumbnailMode.Url -> {
+                InputField(
+                    modifier = Modifier
+                        .fillMaxWidth(85.percent),
+                    label = thumbnailUrlTitleLabel,
+                    inputType = InputType.URL,
+                    placeholder = thumbnailUrlPlaceholder
+                )
+            }
+            is ThumbnailMode.ImageFile -> {
+                InputField(
+                    modifier = Modifier
+                        .fillMaxWidth(85.percent),
+                    label = thumbnailFilePickerLabel,
+                    inputType = InputType.IMAGE
+                )
+
+            }
+        }
+
+        PrimaryButton(
+            modifier = Modifier
+                .fillMaxWidth(25.percent)
+                .margin(left = 24.px),
+            text = if (mode is ThumbnailMode.Url) thumbnailPickerUploadLabel else thumbnailPickerEnterUrlLabel,
+            onClick = onClick
+        )
+    }
+}
+sealed class ThumbnailMode{
+    data class Url(val url: String? = null): ThumbnailMode()
+    data class ImageFile(val file: File? = null): ThumbnailMode()
 }
 
 

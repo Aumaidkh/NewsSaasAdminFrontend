@@ -17,6 +17,7 @@ import com.hopcape.newssaas.admin.utils.Resource.Icons.RedoIcon
 import com.hopcape.newssaas.admin.utils.Resource.Icons.TitleIcon
 import com.hopcape.newssaas.admin.utils.Resource.Icons.UnderlineIcon
 import com.hopcape.newssaas.admin.utils.Resource.Icons.UndoIcon
+import com.hopcape.newssaas.admin.utils.Resource.Icons.VideoIcon
 import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.css.Resize
 import com.varabyte.kobweb.compose.css.ScrollBehavior
@@ -65,7 +66,8 @@ fun EditorComponent(
     onLinkClick: () -> Unit,
     onTitleClick: () -> Unit,
     onSubtitleClick: () -> Unit,
-    onQuotesClick: () -> Unit
+    onQuotesClick: () -> Unit,
+    onVideoClick: () -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -80,7 +82,7 @@ fun EditorComponent(
             // Show Editor Controls when Text area is visible
             if (editorVisibility){
                 // Don't show Redo Control for now
-                editorControls.filter { it !is EditorControl.RedoControl }.forEach { control ->
+                editorControls.forEach { control ->
                     Box(
                         modifier = EditorItemStyle
                             .toModifier()
@@ -96,6 +98,7 @@ fun EditorComponent(
                                     EditorControl.TitleControl -> onTitleClick()
                                     EditorControl.UnderlineControl -> onUnderlineClick()
                                     EditorControl.UndoControl -> onUndoClick()
+                                    EditorControl.VideoControl -> onVideoClick()
                                 }
                             },
                         contentAlignment = Alignment.Center
@@ -112,7 +115,7 @@ fun EditorComponent(
             Spacer()
             OutlinedPrimaryButton(
                 text = if (editorVisibility) "Show Preview" else "Hide Preview",
-                borderWidth = 2,
+                borderWidth = 0,
                 onClick = onPreview
             )
         }
@@ -176,6 +179,7 @@ sealed class EditorControl(
     data object SubtitleControl : EditorControl(icon = TitleIcon)
     data object UndoControl : EditorControl(icon = UndoIcon)
     data object RedoControl : EditorControl(icon = RedoIcon)
+    data object VideoControl : EditorControl(icon = VideoIcon)
 }
 
 val editorControls = listOf(
@@ -188,5 +192,5 @@ val editorControls = listOf(
     EditorControl.TitleControl,
     EditorControl.SubtitleControl,
     EditorControl.UndoControl,
-    EditorControl.RedoControl,
 )
+
