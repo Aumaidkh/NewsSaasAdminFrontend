@@ -88,7 +88,7 @@ fun AddArticleFormSection(
             modifier = Modifier
                 .id(Resource.Id.NavigationItem.NavigationItemContainer)
                 .padding(leftRight = 100.px)
-                .fillMaxWidth(85.percent),
+                .fillMaxWidth(75.percent),
             horizontalAlignment = Alignment.Start
         ) {
             SpanText(
@@ -135,7 +135,7 @@ fun AddArticleFormSection(
                         },
                     label = categorySelectorLabel,
                     placeholder = category,
-                    maxWidth = if (breakpoint <= Breakpoint.MD) 270 else 320
+                    maxWidth = if (breakpoint <= Breakpoint.MD) 220 else 270
                 )
 
                 InputField(
