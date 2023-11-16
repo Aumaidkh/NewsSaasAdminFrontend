@@ -38,6 +38,7 @@ import com.varabyte.kobweb.silk.components.icons.ArrowForwardIcon
 import com.varabyte.kobweb.silk.components.icons.ChevronRightIcon
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.text.SpanText
+import org.jetbrains.compose.web.css.CSSColorValue
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 
@@ -106,7 +107,8 @@ fun NavigationItem(
 fun Icon(
     modifier: Modifier = Modifier,
     path: String,
-    size: Int = 32
+    size: Int = 32,
+    tint: String? = null
 ) {
     Svg(
         attrs = modifier
@@ -115,6 +117,10 @@ fun Icon(
             .height(size.px)
             .toAttrs {
                 attr("viewBox", "0 0 18 18")
+                tint?.let {
+                    attr("fill",it)
+                    attr("stroke",it)
+                }
             }
 
     ) {

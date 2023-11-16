@@ -9,6 +9,7 @@ import com.hopcape.newssaas.admin.components.dialogs.LogoutDialog
 import com.hopcape.newssaas.admin.components.layouts.AdminPageLayout
 import com.hopcape.newssaas.admin.components.layouts.SidePanelView
 import com.hopcape.newssaas.admin.components.widgets.SearchBar
+import com.hopcape.newssaas.admin.components.widgets.cards.StatisticsOverviewCardView
 import com.hopcape.newssaas.admin.style.BackgroundColor
 import com.hopcape.newssaas.admin.utils.Dimensions
 import com.hopcape.newssaas.admin.utils.Dimensions.NAVIGATION_RAIL_WIDTH
@@ -53,17 +54,16 @@ fun HomePage() {
                     .margin(bottom = 30.px)
                     .fillMaxWidth(breakpoint.searchFieldWidthPercent())
             )
+
+            StatisticsOverviewCardView(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                onQuickActionClick = {}
+            )
         }
     }
 }
 
-
-fun Breakpoint.contentContainerMargin() =
-    when {
-        this <= Breakpoint.SM -> 0.px
-        this <= Breakpoint.MD -> NAVIGATION_RAIL_WIDTH.px
-        else -> SIDE_PANEL_WIDTH.px
-    }
 
 fun Breakpoint.searchFieldWidthPercent() =
     when {
