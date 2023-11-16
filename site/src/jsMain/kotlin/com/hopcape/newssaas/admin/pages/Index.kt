@@ -5,9 +5,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.hopcape.newssaas.admin.components.dialogs.LogoutDialog
+import com.hopcape.newssaas.admin.components.layouts.AdminPageLayout
 import com.hopcape.newssaas.admin.components.layouts.SidePanelView
 import com.hopcape.newssaas.admin.components.widgets.SearchBar
 import com.hopcape.newssaas.admin.style.BackgroundColor
+import com.hopcape.newssaas.admin.utils.Dimensions
 import com.hopcape.newssaas.admin.utils.Dimensions.NAVIGATION_RAIL_WIDTH
 import com.hopcape.newssaas.admin.utils.Dimensions.PAGE_WIDTH
 import com.hopcape.newssaas.admin.utils.Dimensions.SIDE_PANEL_WIDTH
@@ -37,42 +40,21 @@ import org.jetbrains.compose.web.css.vh
 @Composable
 fun HomePage() {
     val breakpoint = rememberBreakpoint()
-    var showingCategoryDialog by remember { mutableStateOf(false) }
-    var showingDateDialog by remember { mutableStateOf(false) }
-    var category by remember { mutableStateOf("Select a category") }
-    var date by remember { mutableStateOf("00:00 AM 20/12/2022") }
-
-
-    SidePanelView(
-        breakpoint = breakpoint,
-        content = {
-            Box(
+    AdminPageLayout {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .maxWidth(PAGE_WIDTH.px)
+                .padding(24.px),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            SearchBar(
                 modifier = Modifier
-                    .height(100.vh)
-                    .fillMaxWidth()
-                    .overflow(Overflow.Scroll)
-                    .scrollBehavior(ScrollBehavior.Smooth)
-                    .backgroundColor(BackgroundColor.rgb),
-                contentAlignment = Alignment.TopCenter
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .maxWidth(PAGE_WIDTH.px)
-                        .padding(24.px),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    SearchBar(
-                        modifier = Modifier
-                            .margin(bottom = 30.px)
-                            .fillMaxWidth(breakpoint.searchFieldWidthPercent())
-                    )
-
-                }
-            }
-
+                    .margin(bottom = 30.px)
+                    .fillMaxWidth(breakpoint.searchFieldWidthPercent())
+            )
         }
-    )
+    }
 }
 
 

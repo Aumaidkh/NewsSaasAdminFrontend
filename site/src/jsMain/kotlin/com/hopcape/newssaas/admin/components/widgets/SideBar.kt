@@ -42,14 +42,16 @@ import org.jetbrains.compose.web.css.vh
 
 @Composable
 fun SidePanel(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onLogoClick: () -> Unit,
+    onAddArticleClick: () -> Unit,
+    onLogout: () -> Unit = {}
 ) {
     val context = rememberPageContext()
     var categoriesExpanded by remember { mutableStateOf(false) }
     Column(
         modifier = modifier
             .boxShadow(offsetX = 5.px, blurRadius = 20.px, color = Colors.DarkGray)
-           // .backgroundColor(SidebarColor.rgb)
             .backgroundColor(Colors.Black.copy(alpha = 210))
             .width(Dimensions.SIDE_PANEL_WIDTH.px)
             .fillMaxHeight()
@@ -115,7 +117,7 @@ fun SidePanel(
 
             NavigationItem(
                 modifier = Modifier
-                    .onClick { context.router.navigateTo(Screen.Create.route) },
+                    .onClick { onAddArticleClick() },
                 label = "Add Article",
                 icon = Resource.Icons.AddArticle
             )
@@ -130,15 +132,9 @@ fun SidePanel(
                 icon = Resource.Icons.UpdateArticle
             )
 
-            // Categories Heading
-            CategoriesDropdown(
-                modifier = Modifier
-                    .margin(topBottom = 12.px),
-                expanded = categoriesExpanded,
-                onExpandChange = { categoriesExpanded = !categoriesExpanded }
-            )
 
             NavigationItem(
+                modifier = Modifier.onClick { onLogout() },
                 label = "Sign out",
                 icon = Resource.Icons.LogOut
             )
@@ -146,53 +142,6 @@ fun SidePanel(
     }
 }
 
-
-@Composable
-fun CategoriesDropdown(
-    modifier: Modifier = Modifier,
-    categories: List<String> = defaultCategories,
-    expanded: Boolean = false,
-    onExpandChange: () -> Unit
-) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(right = 24.px)
-                .cursor(Cursor.Pointer)
-                .onClick {
-                    onExpandChange()
-                },
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            NavBarHeading(
-                text = categoriesLabel,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .margin(topBottom = 25.px)
-            )
-
-            Icon(
-                modifier = Modifier
-                    .id(Resource.Id.NavigationItem.NavigationItemIcon),
-                size = 18,
-                path = if (expanded) Resource.Icons.ChevronUpIcon else Resource.Icons.ChevronDownIcon
-            )
-        }
-        if (expanded){
-            categories.forEach { category ->
-                NavigationItem(
-                    label = category,
-                    icon = ""
-                )
-            }
-        }
-    }
-}
 
 val defaultCategories = listOf(
     "Breaking News",

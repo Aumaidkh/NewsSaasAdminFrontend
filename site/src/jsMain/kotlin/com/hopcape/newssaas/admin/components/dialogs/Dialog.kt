@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.hopcape.newssaas.admin.components.widgets.Icon
 import com.hopcape.newssaas.admin.style.Constants
 import com.hopcape.newssaas.admin.style.PrimaryColor
+import com.hopcape.newssaas.admin.utils.Dimensions.SIDE_PANEL_WIDTH
 import com.hopcape.newssaas.admin.utils.Resource
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Box
