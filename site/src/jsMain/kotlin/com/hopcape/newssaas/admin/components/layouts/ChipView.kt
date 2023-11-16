@@ -6,6 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.hopcape.newssaas.admin.components.widgets.input_elements.LabelledSwitch
+import com.hopcape.newssaas.admin.utils.Resource.Labels.breakingNewsSwitchLabel
+import com.hopcape.newssaas.admin.utils.Resource.Labels.sponsoredSwitchLabel
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -23,14 +25,14 @@ fun ChipsPicker(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         LabelledSwitch(
-            label = "Breaking News",
+            label = breakingNewsSwitchLabel,
             checked = checked,
             onCheckedChange = {
                 checked = it
             }
         )
         LabelledSwitch(
-            label = "Sponsored"
+            label = sponsoredSwitchLabel
         )
     }
 }

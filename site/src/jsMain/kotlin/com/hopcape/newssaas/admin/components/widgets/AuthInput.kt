@@ -62,7 +62,8 @@ fun InputField(
     label: String = "Email",
     placeholder: String = "Email",
     id: String = Resource.Id.Input.EmailInput,
-    maxWidth: Int? = null
+    maxWidth: Int? = null,
+    error: String? = null
 ) {
     Column(
         modifier = modifier
@@ -92,17 +93,22 @@ fun InputField(
                 .toModifier()
                 .fillMaxWidth()
                 .id(id)
-                .height(50.px)
+                .height(45.px)
                 .padding(leftRight = 24.px, topBottom = 12.px)
-                .borderRadius(Shapes.Small.cornerRadius.px)
-                .backgroundColor(Colors.White)
-                .color(Colors.Black)
-                .fontFamily(FONT_FAMILY)
-                .fontWeight(FontWeight.Normal)
-                .fontSize(16.px)
                 .toAttrs{
                     attr("placeholder",placeholder)
                 }
         )
+        if (error != null){
+            SpanText(
+                modifier = Modifier
+                    .fontFamily(FONT_FAMILY)
+                    .fontWeight(FontWeight.Normal)
+                    .color(Colors.Red)
+                    .fontSize(12.px)
+                    .margin(bottom = 12.px),
+                text = error
+            )
+        }
     }
 }

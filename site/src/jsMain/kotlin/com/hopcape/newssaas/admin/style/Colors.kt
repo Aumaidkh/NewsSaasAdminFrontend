@@ -28,3 +28,8 @@ val Teritiary = Color(
     hex = "#735471",
     rgb = rgb(115, 84, 113)
 )
+
+val SidebarColor = Color(
+    hex = "#3d5bf0",
+    rgb = rgb(61,91,240)
+)

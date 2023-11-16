@@ -27,6 +27,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
 import com.varabyte.kobweb.compose.ui.modifiers.height
 import com.varabyte.kobweb.compose.ui.modifiers.id
 import com.varabyte.kobweb.compose.ui.modifiers.margin
+import com.varabyte.kobweb.compose.ui.modifiers.onClick
 import com.varabyte.kobweb.compose.ui.modifiers.overflow
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.position
@@ -43,7 +44,11 @@ import org.jetbrains.compose.web.css.vh
  * Shows all the navigation options
  * without news categories*/
 @Composable
-fun NavigationRail() {
+fun NavigationRail(
+    onLogout: () -> Unit,
+    onLogoClick: () -> Unit,
+    onAddArticleClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -58,6 +63,7 @@ fun NavigationRail() {
     ) {
         Box(
             modifier = Modifier
+                .onClick { onLogoClick() }
                 .backgroundColor(Teritiary.rgb)
                 .borderRadius(4.px)
                 .padding(leftRight = 27.px, topBottom = 17.px)
@@ -101,6 +107,8 @@ fun NavigationRail() {
             )
 
             NavigationRailItem(
+                modifier = Modifier
+                    .onClick { onAddArticleClick() },
                 icon = Resource.Icons.AddArticle,
             )
 
@@ -113,6 +121,7 @@ fun NavigationRail() {
             )
 
             NavigationRailItem(
+                modifier = Modifier.onClick { onLogout() },
                 icon = Resource.Icons.LogOut,
             )
         }
@@ -123,11 +132,13 @@ fun NavigationRail() {
  * Individual Navigation Item */
 @Composable
 fun NavigationRailItem(
+    modifier: Modifier = Modifier,
     icon: String = Resource.Icons.SearchIcon
 ) {
     Box(
         modifier = NavigationItemStyle
             .toModifier()
+            .then(modifier)
             .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {

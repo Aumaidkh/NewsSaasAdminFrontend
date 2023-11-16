@@ -19,8 +19,8 @@ val EditorIconStyle by ComponentStyle {
             .transition(CSSTransition(property = TransitionProperty.All,500.ms))
             .padding(8.px)
             .styleModifier {
-                property("stroke",Colors.Black)
-                property("fill",Colors.Black)
+                property("stroke",Colors.Black.copy(alpha = 180))
+                property("fill",Colors.Black.copy(alpha = 180))
             }
     }
     hover {

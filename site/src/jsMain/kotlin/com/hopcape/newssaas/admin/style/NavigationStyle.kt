@@ -16,7 +16,7 @@ val NavigationItemStyle by ComponentStyle {
     cssRule(" > #${Resource.Id.NavigationItem.NavigationItemContainer} > #${Resource.Id.NavigationItem.NavigationItemText}"){
         Modifier
             .transition(CSSTransition(property = TransitionProperty.All, duration = 300.ms))
-            .color(Colors.Black.copy(alpha = 98))
+            .color(Colors.LightGray.copy(alpha = 198))
     }
 
     cssRule(":hover > #${Resource.Id.NavigationItem.NavigationItemContainer} > #${Resource.Id.NavigationItem.NavigationItemText}"){
@@ -28,8 +28,8 @@ val NavigationItemStyle by ComponentStyle {
         Modifier
             .transition(CSSTransition(property = TransitionProperty.All, duration = 300.ms))
             .styleModifier {
-                property("stroke",Colors.Black.copy(alpha = 98))
-                property("fill",Colors.Black.copy(alpha = 98))
+                property("stroke",Colors.LightGray.copy(alpha = 198))
+                property("fill",Colors.LightGray.copy(alpha = 198))
             }
     }
 

@@ -1,6 +1,8 @@
 package com.hopcape.newssaas.admin.components.dialogs
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import com.hopcape.newssaas.admin.components.widgets.InputField
 import com.hopcape.newssaas.admin.components.widgets.InputType
 import com.hopcape.newssaas.admin.components.widgets.button.PrimaryButton
@@ -26,6 +28,7 @@ fun LinkPickerDialog(
     onDismiss: () -> Unit,
     onSubmit: (title: String,url: String) -> Unit
 ) {
+    var errorState = rememberErrorState()
     Dialog(
         title = "Add Link",
         onDismiss = onDismiss,
@@ -44,7 +47,8 @@ fun LinkPickerDialog(
                     inputType = InputType.TEXT,
                     label = label1,
                     placeholder = placeHolder1,
-                    id = LinkTitleId
+                    id = LinkTitleId,
+                    error = errorState.value.field1Error
                 )
 
                 InputField(
@@ -54,16 +58,42 @@ fun LinkPickerDialog(
                     inputType = InputType.URL,
                     label = label2,
                     placeholder = placeHolder2,
-                    id = LinkUrlId
+                    id = LinkUrlId,
+                    error = errorState.value.field2Error
                 )
 
                 PrimaryButton(
                     text = buttonText,
                     height = 50,
                     onClick = {
+                        // Reset Error State, we don't want the errors messages
+                        // to be there even when the error are fixed
+                        errorState.value = LinkPickerErrorState()
                         val title = (document.getElementById(LinkTitleId) as HTMLInputElement).value
                         val url = (document.getElementById(LinkUrlId) as HTMLInputElement).value
+                        if (title.isEmpty()) {
+                            errorState.value = errorState.value.copy(
+                                field1Error = "$label1 can't be empty"
+                            )
+                            return@PrimaryButton
+                        }
+
+                        if (url.isEmpty()) {
+                            errorState.value = errorState.value.copy(
+                                field2Error = "$label2 can't be empty"
+                            )
+                            return@PrimaryButton
+                        }
+
+                        if (url.contains(" ")){
+                            errorState.value = errorState.value.copy(
+                                field2Error = "Invalid $label2"
+                            )
+                            return@PrimaryButton
+                        }
+
                         val validatedUrl = parseUrl(url)
+                        onDismiss()
                         onSubmit(
                             title,
                             validatedUrl
@@ -75,12 +105,27 @@ fun LinkPickerDialog(
     )
 }
 
-private fun parseUrl(url: String): String {
-    if (!url.startsWith("https://")){
-        return "https://$url"
+/**
+ * Wrapper around link picker
+ * error state
+ * @property field1Error - error message on field one
+ * @property field2Error - error message on field two*/
+data class LinkPickerErrorState(
+    val field1Error: String? = null,
+    val field2Error: String? = null
+)
+
+
+@Composable
+fun rememberErrorState() =
+    remember {
+        mutableStateOf(LinkPickerErrorState())
     }
-    if (!url.startsWith("https://www.")){
-        return "https://www.$url"
+
+
+private fun parseUrl(url: String): String {
+    if (!url.startsWith("https://")) {
+        return "https://$url"
     }
     return url
 }

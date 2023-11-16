@@ -17,7 +17,7 @@ sealed class ControlStyle(val style: String) {
     )
 
     class Image(val content: String, url: String, description: String) : ControlStyle(
-        style = "<img src=\"$url\" alt=\"$description\">"
+        style = "<img src=\"$url\" alt=\"$description\" style=\"width:100%;max-width:100%;max-height:500px;object-fit:cover;object-position:center;\">"
     )
 
     class Link(
@@ -29,7 +29,7 @@ sealed class ControlStyle(val style: String) {
     )
 
     class Quotes(val content: String, tag: String = "blockquote") : ControlStyle(
-        style = if (content.startsWith("<$tag>")) removeTag(tag, content) else "<$tag><em>\"$content\"</em></$tag>"
+        style = if (content.startsWith("<$tag>")) removeTag(tag, content) else "<$tag><em>$content</em></$tag>"
     )
 
     class Title(val content: String, tag: String = "h3") : ControlStyle(

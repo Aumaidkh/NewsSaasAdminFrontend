@@ -1,8 +1,35 @@
 package com.hopcape.newssaas.admin.utils
 
 object Resource {
+
     object Images{
         const val logo = "/kobweb-logo.png"
+    }
+
+    object Labels {
+        const val addArticleFormTitleLabel = "Add Article"
+        const val articleTitleLabel = "Article Title *"
+        const val articleSubtitleLabel = "Article Subtitle *"
+        const val categorySelectorLabel = "Category *"
+        const val selectDateAndTimeLabel = "Select Date Time *"
+        const val submitArticleButtonLabel = "Submit"
+        const val thumbnailUrlTitleLabel = "Paste URL ( Optional )"
+        const val thumbnailFilePickerLabel = "Select File *"
+        const val thumbnailPickerUploadLabel = "Upload"
+        const val thumbnailPickerEnterUrlLabel = "Enter Url"
+        const val breakingNewsSwitchLabel = "Breaking News"
+        const val sponsoredSwitchLabel = "Sponsored"
+
+        // Side Panel Labels
+        const val categoriesLabel = "Categories"
+    }
+
+    object PlaceHolders{
+        const val categoryPlaceholder = "Select Category"
+        const val articleTitlePlaceholder = "E.g Exploring the Wonders of Virtual Reality"
+        const val articleSubtitlePlaceholder = "A Journey into Immersive Experiences and Future Realities"
+        const val selectDateAndTimePlaceholder = "Select Date"
+        const val thumbnailUrlPlaceholder = "https://"
     }
 
     object Id {
@@ -11,6 +38,9 @@ object Resource {
             const val PasswordInput = "passwordInput"
             const val Editor = "editor"
             const val EditorPreview = "editorPreview"
+            const val FormTitle = "formTitle"
+            const val articleTitle = "articleTitle"
+            const val articleSubtitle = "articleSubtitle"
         }
 
         object Button {
@@ -68,6 +98,7 @@ object Resource {
         const val UnderlineIcon = "M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57-1.709 0-2.687-1.08-2.687-2.57V3.136zM12.5 15h-9v-1h9v1z"
         const val UndoIcon = "M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1zM8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"
         const val RedoIcon = "M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1zM8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"
+        const val VideoIcon = "M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z"
     }
 
     object Routes {
