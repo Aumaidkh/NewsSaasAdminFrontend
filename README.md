@@ -8,6 +8,19 @@ This page is used to authenticate the user with email and password based authent
 3. Remember Me Checkbox
 4. Login Button
 
+#### Home Page
+![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/91c0f4db-4186-470b-9f2b-f19a9538d886)
+This page displays various statistical elements such as
+1. Total Published Articles
+2. Total Comments
+3. Total Users
+4. Total Ad Revenue
+Apart from that the dashboard also displays
+1. Recently published headlines.
+2. Total number of articles in each category published so far.
+3. List of new users.
+4. List of newly added comments.
+
 #### Add Article Page
 
 ![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/e9df0956-9813-4aba-9507-c62848fa7e60)
