@@ -1,7 +1,8 @@
 ## Pages
 
 #### Login Page
-![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/3f022428-9704-489b-bbd6-b71d0c85c486)
+![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/91776017-2885-4f41-925e-fd23c46a6c1a)
+
 This page is used to authenticate the user with email and password based authentication. It consists of the below elements
 1. Email field
 2. Password field
@@ -9,7 +10,9 @@ This page is used to authenticate the user with email and password based authent
 4. Login Button
 
 #### Home Page
+
 ![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/91c0f4db-4186-470b-9f2b-f19a9538d886)
+
 This page displays various statistical elements such as
 1. Total Published Articles
 2. Total Comments
@@ -23,7 +26,8 @@ Apart from that the dashboard also displays
 
 #### Add Article Page
 
-![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/e9df0956-9813-4aba-9507-c62848fa7e60)
+![image](https://github.com/Aumaidkh/NewsSaasAdminFrontend/assets/52782821/1c1c1966-8053-48ef-aaaf-c6d61b44bf24)
+
 
 
 This page has consists of the following input field
